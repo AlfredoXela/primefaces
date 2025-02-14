@@ -56,6 +56,8 @@ public class SecurityConfig {
             http.authorizeHttpRequests(authorize -> authorize
                             .requestMatchers(mvc.pattern("/login.xhtml")).permitAll()
                             .requestMatchers(new AntPathRequestMatcher("/jakarta.faces.resource/**")).permitAll()
+                            .requestMatchers(mvc.pattern("/nosotros.xhtml")).hasAnyAuthority("ROLE_ADMIN")
+                            .requestMatchers(mvc.pattern("/preguntas.xhtml")).hasAnyAuthority("ROLE_ADMIN", "ROLE_USER")
                             .anyRequest()
                             .authenticated()
                     )
@@ -67,7 +69,9 @@ public class SecurityConfig {
                     .logout(logout -> logout
                             .logoutSuccessUrl("/login.xhtml")
                             .deleteCookies("JSESSIONID")
-                    );
+                    )
+                    .exceptionHandling(ex -> ex.accessDeniedPage("/403.xhtml"))
+                    ;
             return http.build();
         } catch (Exception ex) {
             throw new BeanCreationException("Wrong spring security configuration", ex);
