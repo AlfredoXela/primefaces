@@ -56,8 +56,11 @@ public class SecurityConfig {
             http.authorizeHttpRequests(authorize -> authorize
                             .requestMatchers(mvc.pattern("/login.xhtml")).permitAll()
                             .requestMatchers(new AntPathRequestMatcher("/jakarta.faces.resource/**")).permitAll()
+                            //permisos solo por ruta 
+                            .requestMatchers(mvc.pattern("/admin/**")).hasAnyAuthority("ROLE_ADMIN")
+                            .requestMatchers(mvc.pattern("/operario/**")).hasAnyAuthority("ROLE_USER")
                             .requestMatchers(mvc.pattern("/nosotros.xhtml")).hasAnyAuthority("ROLE_ADMIN")
-                            .requestMatchers(mvc.pattern("/preguntas.xhtml")).hasAnyAuthority("ROLE_ADMIN", "ROLE_USER")
+                            .requestMatchers(mvc.pattern("/preguntas.xhtml")).hasAnyAuthority("ROLE_USER")
                             .anyRequest()
                             .authenticated()
                     )
@@ -67,6 +70,7 @@ public class SecurityConfig {
                             .defaultSuccessUrl("/home.xhtml")
                     )
                     .logout(logout -> logout
+                            .logoutUrl("/logout")
                             .logoutSuccessUrl("/login.xhtml")
                             .deleteCookies("JSESSIONID")
                     )
