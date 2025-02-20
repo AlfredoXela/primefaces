@@ -22,32 +22,34 @@ import org.springframework.stereotype.Service;
  *
  * @author alfre
  */
-
 @Service
-public class UserCredentialsSecurity implements UserDetailsService{
+public class UserCredentialsSecurity implements UserDetailsService {
 
     @Autowired
     private IUsuarioRepository iUsuarioRepository;
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Usuario usuario = iUsuarioRepository.findByNombreUsuario(username).orElse(null);
-        
-        List<GrantedAuthority> grantedAuthorities = new ArrayList<>(); 
-        if(usuario != null){
+
+        List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
+        if (usuario != null) {
             grantedAuthorities = usuario.getRoles().stream()
                     .map(rol -> new SimpleGrantedAuthority(rol.getNombre()))
                     .collect(Collectors.toList());
+
+            return new User(
+                    usuario.getNombreUsuario(),
+                    usuario.getContrasena(),
+                    usuario.isEstado(),
+                    true,
+                    true,
+                    true,
+                    grantedAuthorities
+            );
         }
-        
-        return new User(
-                usuario.getNombreUsuario(),
-                usuario.getContrasena(),
-                usuario.isEstado(),
-                true,
-                true,
-                true, 
-                grantedAuthorities
-        );
+
+        return null;
     }
-    
+
 }

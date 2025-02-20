@@ -6,6 +6,7 @@ package com.proyecto.local.service;
 
 import com.proyecto.local.model.Ruta;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -13,4 +14,5 @@ import java.util.List;
  */ 
 public interface IRutaService {
     List<Ruta> obtenerListaRutas();
+    Map<String, List<String>> getRutaRolMapppings();
 }

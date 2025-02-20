@@ -1,14 +1,15 @@
 package com.proyecto.local.config.security;
 
 import org.springframework.beans.factory.BeanCreationException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.servlet.util.matcher.MvcRequestMatcher;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
@@ -18,35 +19,25 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
-
+    @Autowired
+    private UserCredentialsSecurity userCredentialsSecurity;
+    
     @Bean
     MvcRequestMatcher.Builder mvc(HandlerMappingIntrospector introspector){
         return new MvcRequestMatcher.Builder(introspector);
     }
 
+    @Bean 
+    public PasswordEncoder passwordEncoder(){
+        return new BCryptPasswordEncoder();
+    }
+    
     @Bean
-    public InMemoryUserDetailsManager userDetailsService( ) {
-        // Crea un codificador de contraseñas
-        PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
-
-        // Crea un administrador de detalles de usuario en memoria
-        InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
-
-        // Crea usuarios manualmente
-        manager.createUser(User.builder()
-                .username("admin")
-                .password(encoder.encode("123"))  // Contraseña codificada
-                .authorities("ROLE_ADMIN")  // Rol de admin
-                .build());
-
-        manager.createUser(User.builder()
-                .username("user")
-                .password(encoder.encode("123"))  // Contraseña codificada
-                .authorities("ROLE_USER")  // Rol de usuario
-                .build());
-
-        // Devuelve el administrador de detalles de usuario con los usuarios definidos
-        return manager;
+    public AuthenticationManager authenticationManager(HttpSecurity http) throws Exception{
+        AuthenticationManagerBuilder builder = http.getSharedObject(AuthenticationManagerBuilder.class);
+        builder.userDetailsService(userCredentialsSecurity)
+                .passwordEncoder(passwordEncoder());
+        return builder.build();
     }
 
     @Bean
