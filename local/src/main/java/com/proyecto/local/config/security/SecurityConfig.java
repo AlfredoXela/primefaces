@@ -1,5 +1,9 @@
 package com.proyecto.local.config.security;
 
+import com.proyecto.local.config.filter.AutorizacionFilter;
+import com.proyecto.local.service.IRutaService;
+import java.util.List;
+import java.util.Map;
 import org.springframework.beans.factory.BeanCreationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -15,13 +19,16 @@ import org.springframework.security.web.servlet.util.matcher.MvcRequestMatcher;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
     @Autowired
     private UserCredentialsSecurity userCredentialsSecurity;
-    
+    @Autowired
+    private AutorizacionFilter autorizacionFilter;
+            
     @Bean
     MvcRequestMatcher.Builder mvc(HandlerMappingIntrospector introspector){
         return new MvcRequestMatcher.Builder(introspector);
@@ -44,17 +51,13 @@ public class SecurityConfig {
     public SecurityFilterChain configure(HttpSecurity http, MvcRequestMatcher.Builder mvc) {
         try {
             http.csrf(AbstractHttpConfigurer::disable);
-            http.authorizeHttpRequests(authorize -> authorize
+            http.authorizeHttpRequests(authorize -> {
+                authorize
                             .requestMatchers(mvc.pattern("/login.xhtml")).permitAll()
                             .requestMatchers(new AntPathRequestMatcher("/jakarta.faces.resource/**")).permitAll()
-                            //permisos solo por ruta 
-                            .requestMatchers(mvc.pattern("/admin/**")).hasAnyAuthority("ROLE_ADMIN")
-                            .requestMatchers(mvc.pattern("/operario/**")).hasAnyAuthority("ROLE_USER")
-                            .requestMatchers(mvc.pattern("/nosotros.xhtml")).hasAnyAuthority("ROLE_ADMIN")
-                            .requestMatchers(mvc.pattern("/preguntas.xhtml")).hasAnyAuthority("ROLE_USER")
                             .anyRequest()
-                            .authenticated()
-                    )
+                            .authenticated();
+                    })
                     .formLogin(formLogin -> formLogin
                             .loginPage("/login.xhtml").permitAll()
                             .failureUrl("/login.xhtml?error=true")
@@ -66,6 +69,7 @@ public class SecurityConfig {
                             .deleteCookies("JSESSIONID")
                     )
                     .exceptionHandling(ex -> ex.accessDeniedPage("/403.xhtml"))
+                    .addFilterAfter(autorizacionFilter, UsernamePasswordAuthenticationFilter.class)
                     ;
             return http.build();
         } catch (Exception ex) {
