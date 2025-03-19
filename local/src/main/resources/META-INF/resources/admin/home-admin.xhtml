@@ -2,9 +2,9 @@
         xmlns="http://www.w3.org/1999/xhtml"
         xmlns:h="http://xmlns.jcp.org/jsf/html"
         xmlns:ui="jakarta.faces.facelets"
-        template = "../templates/template.xhtml"
->
-    <ui:define name="titulo">
+        xmlns:p="http://primefaces.org/ui"
+        template="../templates/template.xhtml">
+<ui:define name="titulo">
         Home Admin
     </ui:define>
     <ui:define name="nombreUsuario">
@@ -12,6 +12,6 @@
     </ui:define>
     <ui:define name="nombrePagina">
         Home ADMIN
+        <h:outputText value="#{membresiasController.view.nombreMembresias}" />
     </ui:define>
-
 </ui:composition>

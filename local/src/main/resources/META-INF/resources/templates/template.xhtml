@@ -24,12 +24,12 @@
                         <p:menuitem value="Nosotros" outcome="/nosotros.xhtml"/>
                         <p:menuitem value="Preguntas" outcome="/preguntas.xhtml"/>
                         <sec:authorize access="hasRole('ROLE_ADMIN')">
-                            <p:menuitem value="Solo admin" 
+                            <p:menuitem value="Solo admin"
                                         outcome="/admin/home-admin.xhtml"
                                         rendered="#{sec:isAuthenticated()}"/>
                         </sec:authorize>
                         <sec:authorize access="hasRole('ROLE_USER')">
-                            <p:menuitem value="Solo user" 
+                            <p:menuitem value="Solo user"
                                         outcome="/operario/home-ope.xhtml"
                                         rendered="#{sec:isAuthenticated()}"/>
                         </sec:authorize>
