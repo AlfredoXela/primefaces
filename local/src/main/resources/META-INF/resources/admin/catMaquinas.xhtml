@@ -1,0 +1,62 @@
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:ui="jakarta.faces.facelets"
+    xmlns:p="http://primefaces.org/ui"
+    template="../templates/template.xhtml">
+    <ui:define name="titulo">
+        Home Admin
+    </ui:define>
+    <ui:define name="nombreUsuario">
+        #{loginController.userName}
+    </ui:define>
+    <ui:define name="nombrePagina">
+        registro de las maquinas del gimanasio
+    </ui:define>
+    <ui:define name="contenido">
+        <!--PARA VER LOS REGISTROS-->
+        <p:fragment rendered="#{catMaquinasController.view.catMaquinas == null}">
+            <!--BOTON PARA CREAR NUEVO REGISTRO-->
+            <div class="mb-4">
+                <p:commandButton value="Nuevo registro" 
+                                 action="#{catMaquinasController.nuevo()}"
+                                 update="@all"/>
+            </div>
+
+            <!--TABLA DE LOS REGISTROS-->
+            <p:dataTable value="#{catMaquinasController.view.listaCatMaquinas}" var="maquina">
+                <p:column headerText="Nombre de la maquina" class="text-center">
+                    <p:outputLabel value="#{maquina.nombre}"/>
+                </p:column>
+                <p:column headerText="Descripción de la maquina" class="text-center">
+                    <p:outputLabel value="#{maquina.descripcion}"/>
+                </p:column>
+                <p:column headerText="Modelo de la maquina" class="text-center">
+                    <p:outputLabel value="#{maquina.modelo}"/>
+                </p:column>
+                <p:column headerText="Fecha de adquisición de la maquina" class="text-center">
+                    <p:outputLabel value="#{maquina.fechaAdquisicion}"/>
+                </p:column>
+                <p:column headerText="Acciones" class="text-center">
+                    <p:commandButton icon="pi pi-pencil" 
+                                     styleClass="edit-button rounded-button ui-button-success" 
+                                     style="margin-right: .5rem"></p:commandButton>
+                    <p:commandButton icon="pi pi-trash" 
+                                     class="ui-button-warning rounded-button"></p:commandButton>
+                </p:column>
+            </p:dataTable>
+        </p:fragment>
+
+        <!--PARA CREAR NUEVOS REGISTROS-->
+        <p:fragment rendered="#{catMaquinasController.view.catMaquinas != null}">
+            <div class="w-full mb-4">
+                <p:commandButton value="Regresar" 
+                                 action="#{catMaquinasController.mostrarLista()}"
+                                 update="@all"/>
+            </div>
+            <p:outputLabel value="Nombre de la maquina: "/>
+            <p:inputText value="#{catMaquinasController.view.catMaquinas.nombre}"
+                         class="outline-none"/>
+        </p:fragment>
+    </ui:define>
+</ui:composition>
