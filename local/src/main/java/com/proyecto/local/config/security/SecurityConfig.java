@@ -1,9 +1,6 @@
 package com.proyecto.local.config.security;
 
 import com.proyecto.local.config.filter.AutorizacionFilter;
-import com.proyecto.local.service.IRutaService;
-import java.util.List;
-import java.util.Map;
 import org.springframework.beans.factory.BeanCreationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

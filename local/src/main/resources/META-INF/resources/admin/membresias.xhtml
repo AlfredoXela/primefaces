@@ -1,0 +1,62 @@
+<ui:composition
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:h="http://xmlns.jcp.org/jsf/html"
+        xmlns:ui="jakarta.faces.facelets"
+        xmlns:p="http://primefaces.org/ui"
+        template="../templates/template.xhtml">
+    <ui:define name="titulo">
+        Home Admin
+    </ui:define>
+    <ui:define name="nombreUsuario">
+        #{loginController.userName}
+    </ui:define>
+    <ui:define name="nombrePagina">
+        registro de membresias
+    </ui:define>
+
+    <ui:define name="contenido">
+
+            <p:fragment rendered="#{membresiasController.view.entity == null}">
+                <div class="mb-4">
+                    <p:commandButton value="Nuevo registro"
+                                     action="#{membresiasController.nuevo()}"
+                                     update=":form"/>
+                </div>
+
+                <p:dataTable value="#{membresiasController.view.listaEntity}" var="membresia">
+                    <p:column headerText="Nombre de la maquina" class="text-center">
+                        <p:outputLabel value="#{membresia.nombreCliente}"/>
+                    </p:column>
+                    <p:column headerText="Acciones" class="text-center">
+                        <p:commandButton icon="pi pi-pencil"
+                                         update="form"
+                                         styleClass="edit-button rounded-button ui-button-success"
+                                         action="#{membresiasController.editarMembresias(membresia)}"
+                                         style="margin-right: .5rem">
+
+                        </p:commandButton>
+                        <p:commandButton icon="pi pi-trash"
+                                         update="form"
+                                         action="#{membresiasController.eliminarMembresias(membresia)}"
+                                         class="ui-button-warning rounded-button">
+                        </p:commandButton>
+                    </p:column>
+                </p:dataTable>
+            </p:fragment>
+
+            <!--PARA CREAR NUEVOS REGISTROS-->
+            <p:fragment rendered="#{membresiasController.view.entity != null}">
+                <div class="w-full mb-4">
+                    <p:commandButton value="Regresar"
+                                     action="#{membresiasController.mostrarLista()}"
+                                     update="form"/>
+                </div>
+                <p:outputLabel value="Nombre del cliente: "/>
+                <p:inputText value="#{membresiasController.view.entity.nombreCliente}"
+                             class="outline-none"/>
+
+                <p:commandButton value="Guardar" action="#{membresiasController.guardarMembresias()}" update="form" process="form"/>
+
+            </p:fragment>
+    </ui:define>
+</ui:composition>

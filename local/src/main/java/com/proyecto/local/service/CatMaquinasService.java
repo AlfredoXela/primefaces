@@ -7,6 +7,8 @@ package com.proyecto.local.service;
 import com.proyecto.local.model.CatMaquinas;
 import com.proyecto.local.repository.ICatMaquinasRepository;
 import java.util.List;
+
+import com.proyecto.local.service.impl.ICatMaquinasService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +17,7 @@ import org.springframework.stereotype.Service;
  * @author alfre
  */
 @Service
-public class CatMaquinasService implements ICatMaquinasService{
+public class CatMaquinasService implements ICatMaquinasService {
     
     @Autowired
     private ICatMaquinasRepository iCatMaquinasRepository;

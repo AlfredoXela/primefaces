@@ -11,6 +11,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+
+import com.proyecto.local.service.impl.IRutaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +22,7 @@ import org.springframework.stereotype.Service;
  */
 
 @Service
-public class RutaService implements IRutaService{
+public class RutaService implements IRutaService {
     
     @Autowired
     private IRutaRepository iRutaRepository;

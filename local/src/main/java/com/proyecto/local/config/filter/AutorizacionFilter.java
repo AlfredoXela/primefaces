@@ -4,7 +4,7 @@
  */
 package com.proyecto.local.config.filter;
 
-import com.proyecto.local.service.IRutaService;
+import com.proyecto.local.service.impl.IRutaService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

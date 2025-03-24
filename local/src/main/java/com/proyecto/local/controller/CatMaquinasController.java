@@ -5,7 +5,7 @@
 package com.proyecto.local.controller;
 
 import com.proyecto.local.model.CatMaquinas;
-import com.proyecto.local.service.ICatMaquinasService;
+import com.proyecto.local.service.impl.ICatMaquinasService;
 import com.proyecto.local.view.CatMaquinasView;
 import jakarta.annotation.PostConstruct;
 import jakarta.faces.view.ViewScoped;
