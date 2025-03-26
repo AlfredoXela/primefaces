@@ -16,47 +16,57 @@
 
     <ui:define name="contenido">
 
-            <p:fragment rendered="#{membresiasController.view.entity == null}">
-                <div class="mb-4">
-                    <p:commandButton value="Nuevo registro"
-                                     action="#{membresiasController.nuevo()}"
-                                     update=":form"/>
-                </div>
+        <p:fragment rendered="#{membresiasController.view.entity == null}">
+            <div class="mb-4">
+                <p:commandButton value="Nuevo registro"
+                                 action="#{membresiasController.nuevo()}"
+                                 update=":form"/>
+            </div>
 
-                <p:dataTable value="#{membresiasController.view.listaEntity}" var="membresia">
-                    <p:column headerText="Nombre de la maquina" class="text-center">
-                        <p:outputLabel value="#{membresia.nombreCliente}"/>
-                    </p:column>
-                    <p:column headerText="Acciones" class="text-center">
-                        <p:commandButton icon="pi pi-pencil"
-                                         update="form"
-                                         styleClass="edit-button rounded-button ui-button-success"
-                                         action="#{membresiasController.editarMembresias(membresia)}"
-                                         style="margin-right: .5rem">
+            <p:dataTable value="#{membresiasController.view.listaEntity}" var="membresia">
+                <p:column headerText="Nombre de la maquina" class="text-center">
+                    <p:outputLabel value="#{membresia.nombreCliente}"/>
+                </p:column>
+                <p:column headerText="Nombre de la maquina" class="text-center">
+                    <p:outputLabel value="#{membresia.nombreCliente}"/>
+                </p:column>
+                <p:column headerText="Nombre de la maquina" class="text-center">
+                    <p:outputLabel value="#{membresia.nombreCliente}"/>
+                </p:column>
+                <p:column headerText="Nombre de la maquina" class="text-center">
+                    <p:outputLabel value="#{membresia.nombreCliente}"/>
+                </p:column>
+                <p:column headerText="Acciones" class="text-center">
+                    <p:commandButton icon="pi pi-pencil"
+                                     update="form"
+                                     styleClass="edit-button rounded-button ui-button-success"
+                                     action="#{membresiasController.editarMembresias(membresia)}"
+                                     style="margin-right: .5rem">
 
-                        </p:commandButton>
-                        <p:commandButton icon="pi pi-trash"
-                                         update="form"
-                                         action="#{membresiasController.eliminarMembresias(membresia)}"
-                                         class="ui-button-warning rounded-button">
-                        </p:commandButton>
-                    </p:column>
-                </p:dataTable>
-            </p:fragment>
+                    </p:commandButton>
+                    <p:commandButton icon="pi pi-trash"
+                                     update="form"
+                                     action="#{membresiasController.eliminarMembresias(membresia)}"
+                                     class="ui-button-warning rounded-button">
+                    </p:commandButton>
+                </p:column>
+            </p:dataTable>
+        </p:fragment>
 
-            <!--PARA CREAR NUEVOS REGISTROS-->
-            <p:fragment rendered="#{membresiasController.view.entity != null}">
-                <div class="w-full mb-4">
-                    <p:commandButton value="Regresar"
-                                     action="#{membresiasController.mostrarLista()}"
-                                     update="form"/>
-                </div>
-                <p:outputLabel value="Nombre del cliente: "/>
-                <p:inputText value="#{membresiasController.view.entity.nombreCliente}"
-                             class="outline-none"/>
+        <!--PARA CREAR NUEVOS REGISTROS-->
+        <p:fragment rendered="#{membresiasController.view.entity != null}">
+            <div class="w-full mb-4">
+                <p:commandButton value="Regresar"
+                                 action="#{membresiasController.mostrarLista()}"
+                                 update="form"/>
+            </div>
+            <p:outputLabel value="Nombre del cliente: "/>
+            <p:inputText value="#{membresiasController.view.entity.nombreCliente}"
+                         class="outline-none"/>
 
-                <p:commandButton value="Guardar" action="#{membresiasController.guardarMembresias()}" update="form" process="form"/>
+            <p:commandButton value="Guardar" action="#{membresiasController.guardarMembresias()}" update="form"
+                             process="form"/>
 
-            </p:fragment>
+        </p:fragment>
     </ui:define>
 </ui:composition>
