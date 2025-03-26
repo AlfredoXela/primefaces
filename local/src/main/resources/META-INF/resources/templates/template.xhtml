@@ -2,6 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="jakarta.faces.facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:sec="https://joinfaces.org/security"
       xmlns:p="primefaces">
 <h:head>
@@ -16,51 +17,112 @@
 
 <h:body>
     <h:form id="form">
-        <div class="app-container" style="display: flex; min-height: 100vh;">
+        <div class="app-container" style="display: flex; min-height: 100vh; padding: 0;">
             <!-- Barra lateral -->
-            <div class="sidebar" style="width: 250px; background: #2c3e50; color: white; height: 100vh; display: flex; flex-direction: column;">
-                <div class="sidebar-header" style="padding: 1.5rem; rgba(255, 255, 255, 0.1);">
-                    <h3 class="m-0">DIAMOND</h3>
-                    <small>Usuario <ui:insert name="nombreUsuario"/></small>
+            <div class="sidebar"
+                 style="width: 250px; background: #2c3e50; color: white; height: 100vh; display: flex; flex-direction: column; padding-top: 20px;">
+                <!-- Encabezado de la barra lateral -->
+                <div class="sidebar-header" style="padding: 1.5rem; background: rgba(255, 255, 255, 0.1); text-align: center;">
+                    <h3 class="m-0" style="font-size: 1.5rem; font-weight: bold;">DIAMOND</h3>
+                    <small>Usuario: <ui:insert name="nombreUsuario" style="font-size: 0.9rem; color: #bdc3c7;"/></small>
                 </div>
-                <div class="sidebar-menu" style="flex-grow: 1; overflow-y: auto;">
-                    <p:menu style="width: 100%; height: 100%; rgba(255, 255, 255, 0.1);" >
-                        <p:submenu label="NAVEGACIÓN">
+
+                <!-- Menú lateral -->
+                <div class="sidebar-menu" style="flex-grow: 1; overflow-y: auto; padding: 10px;">
+                    <p:menu style="width: 100%; height: 100%;">                        <!-- Submenú de navegación -->
+                        <p:submenu styleClass="sidebar-submenu">
                             <p:menuitem value="Inicio" outcome="/home.xhtml" icon="pi pi-home"/>
                             <p:menuitem value="Nosotros" outcome="/nosotros.xhtml" icon="pi pi-info-circle"/>
                             <p:menuitem value="Preguntas" outcome="/preguntas.xhtml" icon="pi pi-question"/>
                         </p:submenu>
+
+                        <!-- Submenú de administración visible solo para admin -->
                         <sec:authorize access="hasRole('ROLE_ADMIN')">
-                            <p:submenu label="ADMINISTRACIÓN">
+                            <p:submenu styleClass="sidebar-submenu">
                                 <p:menuitem value="Inicio Admin" outcome="/admin/home-admin.xhtml" icon="pi pi-user"/>
                                 <p:menuitem value="Máquinas" outcome="/admin/catMaquinas.xhtml" icon="pi pi-cog"/>
                                 <p:menuitem value="Membresías" outcome="/admin/membresias.xhtml" icon="pi pi-id-card"/>
                             </p:submenu>
                         </sec:authorize>
+
+                        <!-- Submenú de usuario visible solo para usuario -->
                         <sec:authorize access="hasRole('ROLE_USER')">
-                            <p:submenu label="USUARIO">
-                                <p:menuitem value="Mi Panel" outcome="/operario/home-ope.xhtml" icon="pi pi-user"/>
+                            <p:submenu styleClass="sidebar-submenu">
+                                <p:menuitem value="Mi Panel" outcome="/operario/home-ope.xhtml" icon="pi pi-th-large"/>
                             </p:submenu>
                         </sec:authorize>
-                        <div style="margin-top: auto; padding: 10px; margin-bottom: 20px;">
-                            <p:menuitem value="Cerrar Sesión" url="/logout" icon="pi pi-sign-out"/>
+
+                        <!-- Cerrar sesión -->
+                        <div style="margin-top: auto; padding: 10px; text-align: center;">
+                            <p:menuitem value="Cerrar Sesión" url="/logout" icon="pi pi-sign-out" style="width: 100%;"/>
                         </div>
                     </p:menu>
-
                 </div>
-
             </div>
+
 
             <!-- Contenido principal -->
             <div class="main-content" style="flex: 1; padding: 1.5rem; background-color: #f8f9fa;">
-                <div class="topbar" style="background: white; display: flex; justify-content: space-between;">
-                    <h3>Sistema de Gestión</h3>
-                    <p:commandButton type="button" icon="pi pi-user" styleClass="p-button-rounded p-button-text" style="width: 40px; height: 40px;"/>
-                </div>
+                <div class="card">
 
+                    <p:menubar hideDelay="1000">
+                        <f:facet name="start">
+                            <p:graphicImage name="images/primefaces-logo.svg" library="showcase"/>
+                        </f:facet>
+                        <p:submenu label="File" icon="pi pi-fw pi-file">
+                            <p:submenu label="New" icon="pi pi-fw pi-plus">
+                                <p:menuitem value="Bookmark" icon="pi pi-fw pi-bookmark"/>
+                                <p:menuitem value="Video" icon="pi pi-fw pi-video"/>
+                            </p:submenu>
+                            <p:menuitem value="Delete" icon="pi pi-fw pi-trash"/>
+                            <p:divider/>
+                            <p:menuitem value="Export" icon="pi pi-fw pi-external-link"/>
+                            <p:menuitem value="Duplicate" icon="pi pi-fw pi-copy" disabled="true"/>
+                        </p:submenu>
+
+                        <p:submenu label="Edit" icon="pi pi-fw pi-pencil">
+                            <p:menuitem value="Left" icon="pi pi-fw pi-align-left"/>
+                            <p:menuitem value="Right" icon="pi pi-fw pi-align-right"/>
+                            <p:menuitem value="Center" icon="pi pi-fw pi-align-center"/>
+                            <p:menuitem value="Justify" icon="pi pi-fw pi-align-justify"/>
+                        </p:submenu>
+
+                        <p:submenu label="Users" icon="pi pi-fw pi-user">
+                            <p:menuitem value="New" icon="pi pi-fw pi-user-plus"/>
+                            <p:menuitem value="Delete" icon="pi pi-fw pi-user-minus"/>
+                            <p:submenu label="Search" icon="pi pi-fw pi-users">
+                                <p:submenu label="Filter" icon="pi pi-fw pi-filter">
+                                    <p:menuitem value="Print" icon="pi pi-fw pi-print"/>
+                                </p:submenu>
+                                <p:menuitem value="List" icon="pi pi-fw pi-bars"/>
+                            </p:submenu>
+                        </p:submenu>
+
+                        <p:submenu label="Events" icon="pi pi-fw pi-calendar">
+                            <p:submenu label="Edit" icon="pi pi-fw pi-pencil">
+                                <p:menuitem value="Save" icon="pi pi-fw pi-calendar-plus"/>
+                                <p:menuitem value="Delete" icon="pi pi-fw pi-calendar-minus"/>
+                            </p:submenu>
+                            <p:submenu label="Archieve" icon="pi pi-fw pi-calendar-times">
+                                <p:menuitem value="Remove" icon="pi pi-fw pi-calendar-minus"/>
+                            </p:submenu>
+                        </p:submenu>
+
+                        <p:divider layout="vertical"/>
+
+                        <p:menuitem value="Quit"  url="/logout" icon="pi pi-fw pi-power-off"/>
+
+                        <f:facet name="end">
+                            <div class="ui-input-icon-left mr-2">
+                                <i class="pi pi-fw pi-search"/>
+                                <p:inputText placeholder="Search"/>
+                            </div>
+                            <p:button value="Logout" icon="pi pi-fw pi-sign-out" styleClass="ui-button-info"/>
+                        </f:facet>
+                    </p:menubar>
+                </div>
+                <br/>
                 <div class="content-area">
-                    <h1>Bienvenido <ui:insert name="nombreUsuario"/></h1>
-                    <p>Estás dentro del <ui:insert name="nombrePagina"/>.</p>
                     <div class="card">
                         <ui:insert name="contenido" id="contenedor"/>
                     </div>
