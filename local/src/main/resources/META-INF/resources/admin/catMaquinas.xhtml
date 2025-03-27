@@ -20,7 +20,7 @@
             <div class="mb-4">
                 <p:commandButton value="Nuevo registro" 
                                  action="#{catMaquinasController.nuevo()}"
-                                 update="@all"/>
+                                 update="form"/>
             </div>
 
             <!--TABLA DE LOS REGISTROS-->
@@ -52,11 +52,32 @@
             <div class="w-full mb-4">
                 <p:commandButton value="Regresar" 
                                  action="#{catMaquinasController.mostrarLista()}"
-                                 update="@all"/>
+                                 update="form"/>
             </div>
-            <p:outputLabel value="Nombre de la maquina: "/>
-            <p:inputText value="#{catMaquinasController.view.catMaquinas.nombre}"
-                         class="outline-none"/>
+            <div class="formgrid grid">
+                <div class="field col">
+                    <p:outputLabel value="Nombre de la maquina: "/>
+                    <p:inputText value="#{catMaquinasController.view.catMaquinas.nombre}"
+                                 class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"/>
+                </div>
+                <div class="field col">
+                    <p:outputLabel value="Descripción de la maquina: "/>
+                    <p:inputText value="#{catMaquinasController.view.catMaquinas.descripcion}"
+                                 class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"/>
+                </div>
+            </div>
+            <div class="formgrid grid">
+                <div class="field col">
+                    <p:outputLabel value="Modelo: "/>
+                    <p:inputText value="#{catMaquinasController.view.catMaquinas.modelo}"
+                                 class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"/>
+                </div>
+                <div class="field col">
+                    <p:outputLabel value="Fecha de adquisición: "/>
+<!--                    <p:datePicker value="#{catMaquinasController.view.catMaquinas.fechaAdquisicion}"
+                                  class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"/>-->
+                </div>
+            </div>
         </p:fragment>
     </ui:define>
 </ui:composition>
