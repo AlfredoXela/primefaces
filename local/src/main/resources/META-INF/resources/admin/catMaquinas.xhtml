@@ -24,7 +24,7 @@
             </div>
 
             <!--TABLA DE LOS REGISTROS-->
-            <p:dataTable value="#{catMaquinasController.view.listaCatMaquinas}" var="maquina">
+            <p:dataTable value="#{catMaquinasController.view.listaCatMaquinas}" var="maquina" styleClass="colro">
                 <p:column headerText="Nombre de la maquina" class="text-center">
                     <p:outputLabel value="#{maquina.nombre}"/>
                 </p:column>
