@@ -40,9 +40,13 @@
                 <p:column headerText="Acciones" class="text-center">
                     <p:commandButton icon="pi pi-pencil" 
                                      styleClass="edit-button rounded-button ui-button-success" 
-                                     style="margin-right: .5rem"></p:commandButton>
+                                     style="margin-right: .5rem"
+                                     action="#{catMaquinasController.editar(maquina)}"
+                                     update="form"></p:commandButton>
                     <p:commandButton icon="pi pi-trash" 
-                                     class="ui-button-warning rounded-button"></p:commandButton>
+                                     class="ui-button-warning rounded-button"
+                                     action="#{catMaquinasController.eliminar(maquina)}"
+                                     update="form"></p:commandButton>
                 </p:column>
             </p:dataTable>
         </p:fragment>
@@ -74,10 +78,13 @@
                 </div>
                 <div class="field col">
                     <p:outputLabel value="Fecha de adquisición: "/>
-<!--                    <p:datePicker value="#{catMaquinasController.view.catMaquinas.fechaAdquisicion}"
-                                  class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"/>-->
+                    <p:datePicker value="#{catMaquinasController.view.catMaquinas.fechaAdquisicion}"
+                                  class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"/>
                 </div>
             </div>
+            <p:commandButton value="Guardar"
+                             action="#{catMaquinasController.guardar()}"
+                             update="form"/>
         </p:fragment>
     </ui:define>
 </ui:composition>

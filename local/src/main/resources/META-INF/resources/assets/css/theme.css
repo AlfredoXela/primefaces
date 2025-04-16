@@ -1,3 +1,7 @@
-.colro .ui-datatable-tablewrapper{
-    background-color: green !important;
+.ui-inputfield {
+    width: 100%;
+}
+
+.p-datepicker {
+    padding: 0px !important;
 }

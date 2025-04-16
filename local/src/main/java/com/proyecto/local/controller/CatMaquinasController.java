@@ -44,4 +44,19 @@ public class CatMaquinasController implements Serializable{
     public void nuevo(){
         view.setCatMaquinas(new CatMaquinas());
     }
+
+    public void guardar(){
+        service.guardarCatMaquinas(view.getCatMaquinas());
+        mostrarLista();
+    }
+
+    public void editar(CatMaquinas entity){
+        view.setCatMaquinas(entity);
+        view.setListaCatMaquinas(null);
+    }
+
+    public void eliminar(CatMaquinas entity){
+        service.eliminarMaquina(entity.getId());
+        mostrarLista();
+    }
 }
