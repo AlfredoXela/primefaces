@@ -4,6 +4,8 @@ import com.proyecto.local.config.security.UserCredentialsSecurity;
 import com.proyecto.local.model.Usuario;
 import com.proyecto.local.view.LoginView;
 import jakarta.annotation.PostConstruct;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.context.FacesContext;
 import jakarta.faces.view.ViewScoped;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -38,5 +40,13 @@ public class LoginController implements Serializable {
             return ((UserDetails) datoUser).getUsername();
         }
         return datoUser.toString();
+    }
+
+    public void mensajeGuardado() {
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Información guardada correctamente"));
+    }
+
+    public void mensajeEliminado() {
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Información eliminada correctamente"));
     }
 }

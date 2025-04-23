@@ -25,6 +25,9 @@ public class CatMaquinasController implements Serializable{
     
     @Autowired
     private ICatMaquinasService service;
+
+    @Autowired
+    private LoginController session;
     
     @PostConstruct
     public void init() {
@@ -46,7 +49,8 @@ public class CatMaquinasController implements Serializable{
     }
 
     public void guardar(){
-        service.guardarCatMaquinas(view.getCatMaquinas());
+        service.guardarCatMaquinas(session.getView().getUsuario(), view.getCatMaquinas());
+        session.mensajeGuardado();
         mostrarLista();
     }
 
@@ -56,7 +60,8 @@ public class CatMaquinasController implements Serializable{
     }
 
     public void eliminar(CatMaquinas entity){
-        service.eliminarMaquina(entity.getId());
+        service.eliminarMaquina(session.getView().getUsuario(), entity);
+        session.mensajeEliminado();
         mostrarLista();
     }
 }

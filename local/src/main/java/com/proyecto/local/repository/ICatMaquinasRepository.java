@@ -5,12 +5,17 @@
 package com.proyecto.local.repository;
 
 import com.proyecto.local.model.CatMaquinas;
+import com.proyecto.local.model.Membresias;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+
+import java.util.List;
 
 /**
  *
  * @author alfre
  */
 public interface ICatMaquinasRepository extends JpaRepository<CatMaquinas, Integer>{
-    
+    @Query("SELECT c FROM CatMaquinas c WHERE c.idUsuarioElimino IS NULL AND c.fechaElimino IS NULL")
+    List<CatMaquinas> obtenerListaCatMaquinas();
 }

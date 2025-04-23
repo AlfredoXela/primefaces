@@ -5,6 +5,8 @@
 package com.proyecto.local.service.impl;
 
 import com.proyecto.local.model.CatMaquinas;
+import com.proyecto.local.model.Usuario;
+
 import java.util.List;
 
 /**
@@ -14,8 +16,8 @@ import java.util.List;
 public interface ICatMaquinasService {
     public List<CatMaquinas> obtenerListaCatMaquinas();
     public CatMaquinas obtenerCatMaquinas(Integer id);
-    public CatMaquinas guardarCatMaquinas(CatMaquinas catMaquinas);
-    public CatMaquinas actualizarCatMaquinas(CatMaquinas catMaquinas);
-    public void eliminarMaquina(Integer id);
+    public CatMaquinas guardarCatMaquinas(Usuario usuario, CatMaquinas catMaquinas);
+    public CatMaquinas actualizarCatMaquinas(Usuario usuario, CatMaquinas catMaquinas);
+    public void eliminarMaquina(Usuario usuario, CatMaquinas catMaquinas);
     
 }

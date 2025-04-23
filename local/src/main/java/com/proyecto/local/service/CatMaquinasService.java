@@ -5,7 +5,10 @@
 package com.proyecto.local.service;
 
 import com.proyecto.local.model.CatMaquinas;
+import com.proyecto.local.model.Usuario;
 import com.proyecto.local.repository.ICatMaquinasRepository;
+
+import java.util.Date;
 import java.util.List;
 
 import com.proyecto.local.service.impl.ICatMaquinasService;
@@ -24,7 +27,7 @@ public class CatMaquinasService implements ICatMaquinasService {
     
     @Override
     public List<CatMaquinas> obtenerListaCatMaquinas() {
-        return iCatMaquinasRepository.findAll();
+        return iCatMaquinasRepository.obtenerListaCatMaquinas();
     }
 
     @Override
@@ -33,18 +36,27 @@ public class CatMaquinasService implements ICatMaquinasService {
     }
 
     @Override
-    public CatMaquinas guardarCatMaquinas(CatMaquinas catMaquinas) {
+    public CatMaquinas guardarCatMaquinas(Usuario usuario, CatMaquinas catMaquinas) {
+        if(catMaquinas.getId() == null) {
+            catMaquinas.setIdUsuarioRegistro(usuario.getId());
+            catMaquinas.setFechaRegistro(new Date());
+        }else {
+            catMaquinas.setIdUsuarioModifico(usuario.getId());
+            catMaquinas.setFechaModifico(new Date());
+        }
         return iCatMaquinasRepository.save(catMaquinas);
     }
 
     @Override
-    public void eliminarMaquina(Integer id) {
-        iCatMaquinasRepository.deleteById(id);
+    public void eliminarMaquina(Usuario usuario, CatMaquinas catMaquinas) {
+        catMaquinas.setIdUsuarioElimino(usuario.getId());
+        catMaquinas.setFechaElimino(new Date());
+        iCatMaquinasRepository.save(catMaquinas);
     }
 
     @Override
-    public CatMaquinas actualizarCatMaquinas(CatMaquinas catMaquinas) {
-        return this.guardarCatMaquinas(catMaquinas);
+    public CatMaquinas actualizarCatMaquinas(Usuario usuario,CatMaquinas catMaquinas) {
+        return this.guardarCatMaquinas(usuario, catMaquinas);
     }
     
 }

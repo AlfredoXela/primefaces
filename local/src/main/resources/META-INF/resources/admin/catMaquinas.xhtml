@@ -14,6 +14,7 @@
         registro de las maquinas del gimanasio
     </ui:define>
     <ui:define name="contenido">
+        <p:growl showDetail="true"/>
         <!--PARA VER LOS REGISTROS-->
         <p:fragment rendered="#{catMaquinasController.view.catMaquinas == null}">
             <!--BOTON PARA CREAR NUEVO REGISTRO-->
@@ -46,7 +47,15 @@
                     <p:commandButton icon="pi pi-trash" 
                                      class="ui-button-warning rounded-button"
                                      action="#{catMaquinasController.eliminar(maquina)}"
-                                     update="form"></p:commandButton>
+                                     update="form">
+                        <p:confirm header="Confirmación" message="¿Estás seguro de que deseas eliminar este registro?" icon="pi pi-info-circle"/>
+                    </p:commandButton>
+
+                    <!--Mensaje de confiramción para eliminar-->
+                    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350">
+                        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
+                        <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" />
+                    </p:confirmDialog>
                 </p:column>
             </p:dataTable>
         </p:fragment>
