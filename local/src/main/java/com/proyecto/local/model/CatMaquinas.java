@@ -4,14 +4,11 @@
  */
 package com.proyecto.local.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Date;
 
 /**
  *
@@ -36,7 +33,28 @@ public class CatMaquinas implements Serializable{
     private String modelo;
     
     @Column(name = "fecha_adquisicion")
-    private LocalDate fechaAdquisicion; 
+    private LocalDate fechaAdquisicion;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "fecha_registro")
+    private Date fechaRegistro;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "fecha_modifico")
+    private Date fechaModifico;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "fecha_elimino")
+    private Date fechaElimino;
+
+    @Column(name = "id_usuario_elimino")
+    private Integer idUsuarioElimino;
+
+    @Column(name = "id_usuario_modifico")
+    private Integer idUsuarioModifico;
+
+    @Column(name = "id_usuario_registro")
+    private Integer idUsuarioRegistro;
 
     public CatMaquinas() {
     }
@@ -87,5 +105,53 @@ public class CatMaquinas implements Serializable{
 
     public void setFechaAdquisicion(LocalDate fechaAdquisicion) {
         this.fechaAdquisicion = fechaAdquisicion;
+    }
+
+    public Date getFechaRegistro() {
+        return fechaRegistro;
+    }
+
+    public void setFechaRegistro(Date fechaRegistro) {
+        this.fechaRegistro = fechaRegistro;
+    }
+
+    public Date getFechaModifico() {
+        return fechaModifico;
+    }
+
+    public void setFechaModifico(Date fechaModifico) {
+        this.fechaModifico = fechaModifico;
+    }
+
+    public Date getFechaElimino() {
+        return fechaElimino;
+    }
+
+    public void setFechaElimino(Date fechaElimino) {
+        this.fechaElimino = fechaElimino;
+    }
+
+    public Integer getIdUsuarioElimino() {
+        return idUsuarioElimino;
+    }
+
+    public void setIdUsuarioElimino(Integer idUsuarioElimino) {
+        this.idUsuarioElimino = idUsuarioElimino;
+    }
+
+    public Integer getIdUsuarioModifico() {
+        return idUsuarioModifico;
+    }
+
+    public void setIdUsuarioModifico(Integer idUsuarioModifico) {
+        this.idUsuarioModifico = idUsuarioModifico;
+    }
+
+    public Integer getIdUsuarioRegistro() {
+        return idUsuarioRegistro;
+    }
+
+    public void setIdUsuarioRegistro(Integer idUsuarioRegistro) {
+        this.idUsuarioRegistro = idUsuarioRegistro;
     }
 }
