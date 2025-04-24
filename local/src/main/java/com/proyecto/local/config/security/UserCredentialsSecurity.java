@@ -53,7 +53,6 @@ public class UserCredentialsSecurity implements UserDetailsService {
     }
 
     public Usuario findByNombreUsuario(String nombreUsuario) {
-        System.out.println(nombreUsuario);
         return iUsuarioRepository.findByNombreUsuario(nombreUsuario).orElse(null);
     }
 

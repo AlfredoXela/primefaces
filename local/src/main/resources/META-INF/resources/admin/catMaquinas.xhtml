@@ -91,6 +91,13 @@
                                   class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"/>
                 </div>
             </div>
+            <div class="formgrid grid">
+                <div class="field col">
+                    <p:fileUpload id="upload"
+                                  mode="simple" skinSimple="true" auto="true"
+                                  process="@this" />
+                </div>
+            </div>
             <p:commandButton value="Guardar"
                              action="#{catMaquinasController.guardar()}"
                              update="form"/>
